@@ -14,7 +14,154 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      opportunities: {
+        Row: {
+          application_deadline: string | null
+          application_url: string
+          approval_status: string
+          compensation: string
+          created_at: string
+          description: string
+          id: string
+          is_verified: boolean
+          location: string
+          minimum_age: number
+          opportunity_type: string
+          organization_id: string
+          requirements: string | null
+          target_audience: string
+          title: string
+          updated_at: string
+          work_style: string
+        }
+        Insert: {
+          application_deadline?: string | null
+          application_url: string
+          approval_status?: string
+          compensation: string
+          created_at?: string
+          description: string
+          id?: string
+          is_verified?: boolean
+          location: string
+          minimum_age?: number
+          opportunity_type: string
+          organization_id: string
+          requirements?: string | null
+          target_audience?: string
+          title: string
+          updated_at?: string
+          work_style: string
+        }
+        Update: {
+          application_deadline?: string | null
+          application_url?: string
+          approval_status?: string
+          compensation?: string
+          created_at?: string
+          description?: string
+          id?: string
+          is_verified?: boolean
+          location?: string
+          minimum_age?: number
+          opportunity_type?: string
+          organization_id?: string
+          requirements?: string | null
+          target_audience?: string
+          title?: string
+          updated_at?: string
+          work_style?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "opportunities_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          contact_email: string | null
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          owner_id: string | null
+          website: string | null
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          owner_id?: string | null
+          website?: string | null
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          owner_id?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          role: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          role?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          role?: string
+        }
+        Relationships: []
+      }
+      saved_opportunities: {
+        Row: {
+          created_at: string
+          id: string
+          opportunity_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          opportunity_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          opportunity_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_opportunities_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
