@@ -2,6 +2,7 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, BadgeCheck, CalendarDays, ExternalLink, MapPin } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SaveButton } from "@/components/SaveButton";
 import {
   COMPENSATION_LABELS,
   LOCATION_LABELS,
@@ -171,15 +172,18 @@ function OpportunityDetails() {
             <p className="text-sm text-muted-foreground">
               Applications are handled by {org?.name ?? "the organization"}. We don't collect anything here.
             </p>
-            <a
-              href={data.application_url}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:opacity-90 sm:w-auto"
-            >
-              Apply on {org?.name ?? "organization"}'s site
-              <ExternalLink className="h-4 w-4" />
-            </a>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href={data.application_url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+              >
+                Apply on {org?.name ?? "organization"}'s site
+                <ExternalLink className="h-4 w-4" />
+              </a>
+              <SaveButton opportunityId={data.id} variant="full" className="h-12" />
+            </div>
           </div>
         </article>
       </div>
