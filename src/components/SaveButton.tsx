@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 import { savedIdsQuery, toggleSave } from "@/lib/saved";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 interface Props {
   opportunityId: string;
@@ -13,6 +13,7 @@ interface Props {
 
 export function SaveButton({ opportunityId, variant = "icon", className = "" }: Props) {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const qc = useQueryClient();
   const { data: savedIds } = useQuery(savedIdsQuery(user?.id));
   const saved = savedIds?.has(opportunityId) ?? false;
@@ -33,7 +34,7 @@ export function SaveButton({ opportunityId, variant = "icon", className = "" }: 
     if (!user) {
       toast("Sign in to save", {
         description: "Create a free account to bookmark opportunities.",
-        action: { label: "Sign in", onClick: () => {} },
+        action: { label: "Sign in", onClick: () => navigate({ to: "/sign-in" }) },
       });
       return;
     }
