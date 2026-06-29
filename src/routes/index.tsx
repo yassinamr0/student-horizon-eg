@@ -6,17 +6,17 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Student Opportunities Egypt — Internships & Volunteering" },
+      { title: "Interhub — Internships & Volunteering for High School Students in Egypt" },
       {
         name: "description",
         content:
-          "A curated directory of internships and volunteering opportunities for Egyptian high school students.",
+          "A curated directory of internships and volunteering opportunities for high school students in Egypt.",
       },
-      { property: "og:title", content: "Student Opportunities Egypt" },
+      { property: "og:title", content: "Interhub" },
       {
         property: "og:description",
         content:
-          "Discover internships and volunteering opportunities built for Egyptian high school students.",
+          "Discover internships and volunteering opportunities built for high school students in Egypt.",
       },
     ],
   }),
@@ -45,10 +45,10 @@ function Home() {
           <div className="relative mx-auto max-w-3xl px-4 pb-12 pt-16 text-center sm:pt-24">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              For Egyptian high school students
+              For high school students in Egypt
             </span>
             <h1 className="mt-5 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl">
-              Discover internships and volunteering opportunities built for Egyptian high school students.
+              Discover internships and volunteering opportunities built for high school students in Egypt.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-pretty text-base text-muted-foreground">
               A curated directory — every opportunity links you straight to the organization's own application page.

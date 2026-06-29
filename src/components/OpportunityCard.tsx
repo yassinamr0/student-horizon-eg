@@ -7,6 +7,8 @@ import {
   WORK_STYLE_LABELS,
   type OpportunityRow,
 } from "@/lib/opportunities";
+import { SaveButton } from "./SaveButton";
+
 
 function Pill({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "primary" | "muted" }) {
   const tones = {
@@ -51,6 +53,7 @@ export function OpportunityCard({ opp }: { opp: OpportunityRow }) {
             {opp.title}
           </h3>
         </div>
+        <SaveButton opportunityId={opp.id} />
       </div>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
