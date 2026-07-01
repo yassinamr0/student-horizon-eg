@@ -154,10 +154,15 @@ function AdminDashboard() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <div className="mx-auto max-w-6xl px-4 py-8">
-        <h1 className="text-2xl font-semibold tracking-tight">Admin Dashboard</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Moderate opportunities across all organizations.
-        </p>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight">Admin Dashboard</h1>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Moderate opportunities across all organizations.
+            </p>
+          </div>
+          <CreateOpportunityDialog organizations={orgsQ.data ?? []} />
+        </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <StatCard label="Total" value={counts.total} />
