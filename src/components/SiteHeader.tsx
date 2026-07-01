@@ -33,6 +33,15 @@ export function SiteHeader() {
               >
                 My Saved
               </Link>
+              {profile?.role === "admin" && (
+                <Link
+                  to="/admin"
+                  className="rounded-full px-3 py-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  activeProps={{ className: "rounded-full px-3 py-1.5 bg-secondary text-foreground" }}
+                >
+                  Admin
+                </Link>
+              )}
               <span className="hidden max-w-[10ch] truncate px-2 text-xs text-muted-foreground sm:inline">
                 {displayName}
               </span>
