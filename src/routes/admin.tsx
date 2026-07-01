@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
-import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { SiteHeader } from "@/components/SiteHeader";
 import { useAuth } from "@/lib/auth";
+import { supabase } from "@/integrations/supabase/client";
 import {
   adminOpportunitiesQuery,
   adminOrganizationsQuery,
@@ -12,6 +13,17 @@ import {
   setOpportunityStatus,
   type ApprovalStatus,
 } from "@/lib/admin";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Select,
