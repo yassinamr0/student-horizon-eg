@@ -24,7 +24,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -50,9 +49,20 @@ export const Route = createFileRoute("/admin")({
 
 function AdminPage() {
   const { user, profile, loading } = useAuth();
-  const router = useRouter();
+  const navigate = useNavigate();
 
-  if (loading) {
+  // Wait for profile to load before deciding admin status
+  const profilePending = !!user && !profile;
+
+  useEffect(() => {
+    if (loading || profilePending) return;
+    if (!user) return; // show inline CTA below
+    if (profile?.role !== "admin") {
+      navigate({ to: "/" });
+    }
+  }, [loading, profilePending, user, profile, navigate]);
+
+  if (loading || profilePending) {
     return (
       <div className="min-h-screen bg-background">
         <SiteHeader />
@@ -78,8 +88,6 @@ function AdminPage() {
   }
 
   if (profile?.role !== "admin") {
-    // Redirect non-admins away
-    router.navigate({ to: "/" });
     return null;
   }
 
