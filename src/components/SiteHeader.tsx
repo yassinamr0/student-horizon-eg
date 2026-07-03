@@ -27,6 +27,9 @@ export function SiteHeader() {
           <Link to="/browse" className={navLink} activeProps={{ className: activeNavLink }}>
             Browse
           </Link>
+          <Link to="/submit" className={navLink} activeProps={{ className: activeNavLink }}>
+            Post a Listing
+          </Link>
           {user && (
             <Link to="/saved" className={navLink} activeProps={{ className: activeNavLink }}>
               My Saved
@@ -66,6 +69,9 @@ export function SiteHeader() {
       <div className="flex items-center gap-4 border-t border-border px-4 py-2 md:hidden">
         <Link to="/browse" className={navLink + " !py-1"} activeProps={{ className: activeNavLink + " !py-1" }}>
           Browse
+        </Link>
+        <Link to="/submit" className={navLink + " !py-1"} activeProps={{ className: activeNavLink + " !py-1" }}>
+          Post
         </Link>
         {user && (
           <Link to="/saved" className={navLink + " !py-1"} activeProps={{ className: activeNavLink + " !py-1" }}>
