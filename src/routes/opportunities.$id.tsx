@@ -49,17 +49,20 @@ export const Route = createFileRoute("/opportunities/$id")({
   component: OpportunityDetails,
 });
 
-function Pill({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "primary" }) {
-  const cls =
-    tone === "primary"
-      ? "bg-accent text-accent-foreground"
-      : "bg-secondary text-secondary-foreground";
-  return (
-    <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${cls}`}>
-      {children}
-    </span>
-  );
-}
+const typeBadge: Record<string, string> = {
+  internship: "badge badge-internship",
+  volunteering: "badge badge-volunteering",
+};
+const compBadge: Record<string, string> = {
+  paid: "badge badge-paid",
+  unpaid: "badge badge-unpaid",
+  participant_pays: "badge badge-participant-pays",
+};
+const workBadge: Record<string, string> = {
+  on_site: "badge badge-onsite",
+  hybrid: "badge badge-hybrid",
+  remote: "badge badge-remote",
+};
 
 function OpportunityDetails() {
   const { id } = Route.useParams();
@@ -70,7 +73,7 @@ function OpportunityDetails() {
       <div className="min-h-screen bg-background">
         <SiteHeader />
         <div className="mx-auto max-w-3xl px-4 py-10">
-          <div className="h-64 animate-pulse rounded-2xl border border-border bg-card" />
+          <div className="skeleton h-64" />
         </div>
       </div>
     );
@@ -94,95 +97,101 @@ function OpportunityDetails() {
       <div className="mx-auto max-w-3xl px-4 py-6">
         <Link
           to="/browse"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          className="inline-flex items-center gap-1 font-sans text-[13px] text-muted-foreground transition-all duration-[180ms] hover:text-[color:var(--color-brand)]"
         >
           <ArrowLeft className="h-4 w-4" /> Back to browse
         </Link>
 
-        <article className="mt-4 rounded-3xl border border-border bg-card p-6 sm:p-8">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
-            <div className="flex min-w-0 items-center gap-3">
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent text-lg font-semibold text-accent-foreground">
-                {org?.logo_url ? (
-                  <img src={org.logo_url} alt="" className="h-full w-full rounded-2xl object-cover" />
-                ) : (
-                  (org?.name ?? "?").charAt(0)
-                )}
-              </div>
-              <div className="min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="truncate text-sm font-medium text-muted-foreground">
-                    {org?.name}
+        <article className="card-surface mt-4 p-6 sm:p-8">
+          <div className="flex items-start gap-3">
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-[color:var(--color-brand-light)] font-display text-lg font-semibold text-[color:var(--color-brand-hover)]">
+              {org?.logo_url ? (
+                <img src={org.logo_url} alt="" className="h-full w-full rounded-md object-cover" />
+              ) : (
+                (org?.name ?? "?").charAt(0)
+              )}
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5">
+                <span className="truncate font-sans text-[13px] font-medium text-muted-foreground">
+                  {org?.name}
+                </span>
+                {data.is_verified && (
+                  <span className="badge badge-verified">
+                    <BadgeCheck className="h-3 w-3" /> Verified
                   </span>
-                  {data.is_verified && (
-                    <BadgeCheck className="h-4 w-4 text-primary" aria-label="Verified" />
-                  )}
-                </div>
-                {org?.website && (
-                  <a
-                    href={org.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
-                  >
-                    Visit website <ExternalLink className="h-3 w-3" />
-                  </a>
                 )}
               </div>
+              {org?.website && (
+                <a
+                  href={org.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-0.5 inline-flex items-center gap-1 font-sans text-[13px] text-[color:var(--color-brand)] hover:underline"
+                >
+                  Visit website <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
             </div>
           </div>
 
-          <h1 className="mt-5 text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+          <h1 className="mt-6 font-display text-[28px] font-bold leading-[32px] tracking-[-0.01em] text-foreground sm:text-[36px] sm:leading-[40px]">
             {data.title}
           </h1>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Pill tone="primary">{TYPE_LABELS[data.opportunity_type]}</Pill>
-            <Pill>{COMPENSATION_LABELS[data.compensation]}</Pill>
-            <Pill>{WORK_STYLE_LABELS[data.work_style]}</Pill>
-            <Pill>Age {data.minimum_age}+</Pill>
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            <span className={typeBadge[data.opportunity_type] ?? "badge badge-neutral"}>
+              {TYPE_LABELS[data.opportunity_type]}
+            </span>
+            <span className={compBadge[data.compensation] ?? "badge badge-neutral"}>
+              {COMPENSATION_LABELS[data.compensation]}
+            </span>
+            <span className={workBadge[data.work_style] ?? "badge badge-neutral"}>
+              {WORK_STYLE_LABELS[data.work_style]}
+            </span>
+            <span className="badge badge-neutral">Age {data.minimum_age}+</span>
           </div>
 
-          <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-2">
-            <div className="flex items-center gap-2 text-muted-foreground">
+          <dl className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="flex items-center gap-2 font-sans text-[13px] text-muted-foreground">
               <MapPin className="h-4 w-4" />
               <span>{LOCATION_LABELS[data.location]}</span>
             </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="flex items-center gap-2 font-sans text-[13px] text-muted-foreground">
               <CalendarDays className="h-4 w-4" />
               <span>Deadline: {deadline}</span>
             </div>
           </dl>
 
           <Section title="About this opportunity">
-            <p className="whitespace-pre-line text-[15px] leading-relaxed text-foreground/90">
+            <p className="whitespace-pre-line font-sans text-[15px] leading-6 text-foreground">
               {data.description}
             </p>
           </Section>
 
           {data.requirements && (
             <Section title="Requirements">
-              <p className="whitespace-pre-line text-[15px] leading-relaxed text-foreground/90">
+              <p className="whitespace-pre-line font-sans text-[15px] leading-6 text-foreground">
                 {data.requirements}
               </p>
             </Section>
           )}
 
-          <div className="mt-8 rounded-2xl bg-surface p-5">
-            <p className="text-sm text-muted-foreground">
-              Applications are handled by {org?.name ?? "the organization"}. We don't collect anything here.
+          <div className="mt-8 rounded-md border border-border bg-[color:var(--color-brand-light)]/40 p-5">
+            <p className="font-sans text-[13px] text-muted-foreground">
+              Applications are handled by {org?.name ?? "the organization"}. Nothing is collected here.
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               <a
                 href={data.application_url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+                className="btn-primary"
               >
-                Apply on {org?.name ?? "organization"}'s site
+                Apply on {org?.name ?? "organization"}&rsquo;s site
                 <ExternalLink className="h-4 w-4" />
               </a>
-              <SaveButton opportunityId={data.id} variant="full" className="h-12" />
+              <SaveButton opportunityId={data.id} variant="full" />
             </div>
           </div>
         </article>
@@ -193,10 +202,8 @@ function OpportunityDetails() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-6">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-        {title}
-      </h2>
+    <section className="mt-8">
+      <h2 className="text-label text-muted-foreground">{title}</h2>
       <div className="mt-2">{children}</div>
     </section>
   );
