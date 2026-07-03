@@ -43,7 +43,7 @@ function Home() {
             <div className="max-w-[600px]">
               <span className="badge badge-internship">For High Schoolers in Egypt</span>
 
-              <h1 className="mt-5 font-display text-[40px] font-bold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[48px] sm:leading-[52px]">
+              <h1 className="mt-5 font-display text-[30px] font-bold leading-[1.1] tracking-[-0.02em] text-foreground sm:text-[40px] sm:leading-[1.05] lg:text-[48px] lg:leading-[52px]">
                 Real internships and volunteering, built for high school students in Egypt.
               </h1>
 
