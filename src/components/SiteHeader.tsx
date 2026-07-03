@@ -27,6 +27,9 @@ export function SiteHeader() {
           <Link to="/browse" className={navLink} activeProps={{ className: activeNavLink }}>
             Browse
           </Link>
+          <Link to="/submit" className={navLink} activeProps={{ className: activeNavLink }}>
+            Post a Listing
+          </Link>
           {user && (
             <Link to="/saved" className={navLink} activeProps={{ className: activeNavLink }}>
               My Saved
