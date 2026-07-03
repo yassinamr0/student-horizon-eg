@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, Filter, Sparkles, ExternalLink } from "lucide-react";
+import { Search, Filter, ExternalLink, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
@@ -37,61 +37,93 @@ function Home() {
       <SiteHeader />
 
       <main>
-        <section className="relative overflow-hidden">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 -top-32 h-96 bg-[radial-gradient(ellipse_at_center,var(--color-accent),transparent_60%)] opacity-70"
-          />
-          <div className="relative mx-auto max-w-3xl px-4 pb-12 pt-16 text-center sm:pt-24">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              For high school students in Egypt
-            </span>
-            <h1 className="mt-5 text-balance text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl">
-              Discover internships and volunteering opportunities built for high school students in Egypt.
-            </h1>
-            <p className="mx-auto mt-4 max-w-xl text-pretty text-base text-muted-foreground">
-              A curated directory — every opportunity links you straight to the organization's own application page.
-            </p>
+        {/* Asymmetric hero — text left, illustration right */}
+        <section className="mx-auto max-w-6xl px-4 pt-16 pb-24 sm:pt-24">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,600px)_minmax(0,1fr)] lg:items-center lg:gap-16">
+            <div className="max-w-[600px]">
+              <span className="badge badge-internship">For High Schoolers in Egypt</span>
 
-            <div className="mt-7 flex flex-col items-center gap-3">
-              <Link
-                to="/browse"
-                className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
-              >
-                Browse Opportunities
-              </Link>
+              <h1 className="mt-5 font-display text-[40px] font-bold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[48px] sm:leading-[52px]">
+                Real internships and volunteering, built for high school students in Egypt.
+              </h1>
 
-              <form onSubmit={submit} className="mt-2 w-full max-w-md">
-                <label htmlFor="home-search" className="sr-only">Search</label>
-                <div className="flex items-center rounded-full border border-border bg-card pl-4 pr-1.5 shadow-sm focus-within:border-primary/50">
-                  <Search className="h-4 w-4 text-muted-foreground" />
+              <p className="mt-5 font-sans text-[16px] leading-[26px] text-muted-foreground">
+                A curated directory. Every opportunity links you straight to the organization&rsquo;s own application &mdash; nothing is submitted through Interhub.
+              </p>
+
+              <form onSubmit={submit} className="mt-8 flex items-center gap-2 rounded-md border border-border bg-surface p-1.5 focus-within:border-[color:var(--color-border-focus)]">
+                <div className="flex flex-1 items-center gap-2 pl-2">
+                  <Search className="h-4 w-4 text-[color:var(--color-text-muted)]" />
                   <input
-                    id="home-search"
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
-                    placeholder="Search internships, organizations, topics…"
-                    className="h-11 flex-1 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
+                    placeholder="Search internships, organizations, topics&hellip;"
+                    className="h-10 flex-1 bg-transparent font-sans text-[15px] outline-none placeholder:text-[color:var(--color-text-muted)]"
                   />
-                  <button
-                    type="submit"
-                    className="h-9 rounded-full bg-foreground px-4 text-xs font-medium text-background hover:opacity-90"
-                  >
-                    Search
-                  </button>
                 </div>
+                <button type="submit" className="btn-primary h-10 px-4 text-[14px]">
+                  Search
+                  <ArrowRight className="h-4 w-4" />
+                </button>
               </form>
+
+              <div className="mt-4 flex items-center gap-4">
+                <Link to="/browse" className="btn-ghost">
+                  Or browse everything <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Topographic SVG — low contrast, warm tone */}
+            <div className="relative hidden lg:block" aria-hidden>
+              <svg
+                viewBox="0 0 500 460"
+                className="h-auto w-full text-[color:var(--color-border)]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.25"
+              >
+                {Array.from({ length: 14 }).map((_, i) => {
+                  const r = 60 + i * 22;
+                  return (
+                    <ellipse
+                      key={i}
+                      cx="320"
+                      cy="230"
+                      rx={r}
+                      ry={r * 0.72}
+                      opacity={0.7 - i * 0.035}
+                    />
+                  );
+                })}
+                <circle
+                  cx="320"
+                  cy="230"
+                  r="18"
+                  fill="var(--color-brand)"
+                  stroke="none"
+                  opacity="0.9"
+                />
+                <circle
+                  cx="140"
+                  cy="120"
+                  r="6"
+                  fill="var(--color-cta)"
+                  stroke="none"
+                />
+              </svg>
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-5xl px-4 pb-20">
-          <div className="grid gap-4 sm:grid-cols-3">
+        {/* Value props */}
+        <section className="mx-auto max-w-6xl px-4 pb-24">
+          <div className="grid gap-6 md:grid-cols-3">
             {[
               {
                 icon: Search,
                 title: "Find Opportunities",
-                body: "Internships and volunteering roles across Egypt, all vetted before they're listed.",
+                body: "Internships and volunteering roles across Egypt, vetted before they&rsquo;re listed.",
               },
               {
                 icon: Filter,
@@ -101,18 +133,18 @@ function Home() {
               {
                 icon: ExternalLink,
                 title: "Apply Directly",
-                body: "Every Apply button takes you straight to the organization's own form — nothing in between.",
+                body: "Every Apply button opens the organization&rsquo;s own form &mdash; nothing in between.",
               },
             ].map(({ icon: Icon, title, body }) => (
-              <div
-                key={title}
-                className="rounded-2xl border border-border bg-card p-5"
-              >
-                <div className="grid h-9 w-9 place-items-center rounded-xl bg-accent text-accent-foreground">
-                  <Icon className="h-4 w-4" />
-                </div>
-                <h3 className="mt-3 font-semibold">{title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{body}</p>
+              <div key={title} className="card-surface p-6">
+                <Icon className="h-5 w-5 text-[color:var(--color-brand)]" />
+                <h3 className="mt-4 font-display text-[18px] font-semibold leading-6 text-foreground">
+                  {title}
+                </h3>
+                <p
+                  className="mt-2 font-sans text-[15px] leading-6 text-muted-foreground"
+                  dangerouslySetInnerHTML={{ __html: body }}
+                />
               </div>
             ))}
           </div>
