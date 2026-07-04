@@ -123,11 +123,11 @@ function OpportunityDetails() {
                   </span>
                 )}
               </div>
-              {org?.website && (
+              {safeHttpUrl(org?.website) && (
                 <a
-                  href={org.website}
+                  href={safeHttpUrl(org?.website)!}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                   className="mt-0.5 inline-flex items-center gap-1 font-sans text-[13px] text-[color:var(--color-brand)] hover:underline"
                 >
                   Visit website <ExternalLink className="h-3 w-3" />
