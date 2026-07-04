@@ -13,6 +13,7 @@ import {
   setOpportunityStatus,
   type ApprovalStatus,
 } from "@/lib/admin";
+import { isSafeHttpUrl } from "@/lib/url";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -333,9 +334,12 @@ function CreateOpportunityDialog({
       let organization_id = orgId;
       if (orgMode === "new") {
         if (!newOrgName.trim()) throw new Error("Organization name is required");
+        const websiteVal = newOrgWebsite.trim() || null;
+        if (websiteVal && !isSafeHttpUrl(websiteVal))
+          throw new Error("Website must start with http:// or https://");
         const { data, error } = await supabase
           .from("organizations")
-          .insert({ name: newOrgName.trim(), website: newOrgWebsite.trim() || null })
+          .insert({ name: newOrgName.trim(), website: websiteVal })
           .select("id")
           .single();
         if (error) throw error;
@@ -344,6 +348,8 @@ function CreateOpportunityDialog({
       if (!organization_id) throw new Error("Please pick an organization");
       if (!title.trim() || !description.trim() || !applicationUrl.trim())
         throw new Error("Title, description, and application URL are required");
+      if (!isSafeHttpUrl(applicationUrl.trim()))
+        throw new Error("Application URL must start with http:// or https://");
 
       const { error } = await supabase.from("opportunities").insert({
         organization_id,

@@ -10,6 +10,7 @@ import {
   WORK_STYLE_LABELS,
   opportunityQuery,
 } from "@/lib/opportunities";
+import { safeHttpUrl } from "@/lib/url";
 
 function ErrorView({ reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
@@ -122,11 +123,11 @@ function OpportunityDetails() {
                   </span>
                 )}
               </div>
-              {org?.website && (
+              {safeHttpUrl(org?.website) && (
                 <a
-                  href={org.website}
+                  href={safeHttpUrl(org?.website)!}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                   className="mt-0.5 inline-flex items-center gap-1 font-sans text-[13px] text-[color:var(--color-brand)] hover:underline"
                 >
                   Visit website <ExternalLink className="h-3 w-3" />
@@ -182,15 +183,21 @@ function OpportunityDetails() {
               Applications are handled by {org?.name ?? "the organization"}. Nothing is collected here.
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <a
-                href={data.application_url}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="btn-primary"
-              >
-                Apply on {org?.name ?? "organization"}&rsquo;s site
-                <ExternalLink className="h-4 w-4" />
-              </a>
+              {safeHttpUrl(data.application_url) ? (
+                <a
+                  href={safeHttpUrl(data.application_url)!}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="btn-primary"
+                >
+                  Apply on {org?.name ?? "organization"}&rsquo;s site
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              ) : (
+                <span className="text-[13px] text-muted-foreground">
+                  Application link unavailable.
+                </span>
+              )}
               <SaveButton opportunityId={data.id} variant="full" />
             </div>
           </div>

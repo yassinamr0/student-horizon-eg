@@ -26,7 +26,7 @@ export const savedOpportunitiesQuery = (userId: string | undefined) =>
       const { data, error } = await supabase
         .from("saved_opportunities")
         .select(
-          "opportunity_id, opportunities(id, organization_id, title, description, requirements, opportunity_type, location, work_style, compensation, minimum_age, application_deadline, application_url, is_verified, organizations(id, name, website, contact_email, logo_url))",
+          "opportunity_id, opportunities(id, organization_id, title, description, requirements, opportunity_type, location, work_style, compensation, minimum_age, application_deadline, application_url, is_verified, organizations(id, name, website, logo_url))",
         )
         .eq("user_id", userId)
         .order("created_at", { ascending: false });
