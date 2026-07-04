@@ -183,15 +183,21 @@ function OpportunityDetails() {
               Applications are handled by {org?.name ?? "the organization"}. Nothing is collected here.
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <a
-                href={data.application_url}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="btn-primary"
-              >
-                Apply on {org?.name ?? "organization"}&rsquo;s site
-                <ExternalLink className="h-4 w-4" />
-              </a>
+              {safeHttpUrl(data.application_url) ? (
+                <a
+                  href={safeHttpUrl(data.application_url)!}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="btn-primary"
+                >
+                  Apply on {org?.name ?? "organization"}&rsquo;s site
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              ) : (
+                <span className="text-[13px] text-muted-foreground">
+                  Application link unavailable.
+                </span>
+              )}
               <SaveButton opportunityId={data.id} variant="full" />
             </div>
           </div>
