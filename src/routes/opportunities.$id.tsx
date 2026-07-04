@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, BadgeCheck, CalendarDays, ExternalLink, MapPin } from "lucide-react";
+import { ArrowLeft, CalendarDays, ExternalLink, MapPin } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SaveButton } from "@/components/SaveButton";
 import {
@@ -117,11 +117,6 @@ function OpportunityDetails() {
                 <span className="truncate font-sans text-[13px] font-medium text-muted-foreground">
                   {org?.name}
                 </span>
-                {data.is_verified && (
-                  <span className="badge badge-verified">
-                    <BadgeCheck className="h-3 w-3" /> Verified
-                  </span>
-                )}
               </div>
               {safeHttpUrl(org?.website) && (
                 <a

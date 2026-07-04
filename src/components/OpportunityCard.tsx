@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { BadgeCheck, CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import {
   COMPENSATION_LABELS,
   LOCATION_LABELS,
@@ -48,11 +48,6 @@ export function OpportunityCard({ opp }: { opp: OpportunityRow }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5 font-sans text-[13px] text-muted-foreground">
             <span className="truncate">{org?.name}</span>
-            {opp.is_verified && (
-              <span className="badge badge-verified !py-[2px] !px-1.5">
-                <BadgeCheck className="h-3 w-3" />
-              </span>
-            )}
           </div>
           <h3 className="mt-1 line-clamp-2 font-display text-[18px] font-semibold leading-6 text-foreground">
             {opp.title}
