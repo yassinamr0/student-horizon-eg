@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { BadgeCheck, CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import {
   COMPENSATION_LABELS,
   LOCATION_LABELS,
