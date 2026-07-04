@@ -61,7 +61,7 @@ export const opportunitiesQuery = () =>
       const { data, error } = await supabase
         .from("opportunities")
         .select(
-          "id, organization_id, title, description, requirements, opportunity_type, location, work_style, compensation, minimum_age, application_deadline, application_url, is_verified, organizations(id, name, website, contact_email, logo_url)",
+          "id, organization_id, title, description, requirements, opportunity_type, location, work_style, compensation, minimum_age, application_deadline, application_url, is_verified, organizations(id, name, website, logo_url)",
         )
         .eq("approval_status", "approved")
         .order("created_at", { ascending: false });
@@ -77,7 +77,7 @@ export const opportunityQuery = (id: string) =>
       const { data, error } = await supabase
         .from("opportunities")
         .select(
-          "id, organization_id, title, description, requirements, opportunity_type, location, work_style, compensation, minimum_age, application_deadline, application_url, is_verified, organizations(id, name, website, contact_email, logo_url)",
+          "id, organization_id, title, description, requirements, opportunity_type, location, work_style, compensation, minimum_age, application_deadline, application_url, is_verified, organizations(id, name, website, logo_url)",
         )
         .eq("id", id)
         .eq("approval_status", "approved")
