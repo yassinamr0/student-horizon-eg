@@ -10,7 +10,6 @@ export interface OrganizationRow {
   id: string;
   name: string;
   website: string | null;
-  contact_email: string | null;
   logo_url: string | null;
 }
 
