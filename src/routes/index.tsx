@@ -38,8 +38,53 @@ function Home() {
 
       <main>
         {/* Asymmetric hero — text left, illustration right */}
-        <section className="mx-auto max-w-6xl px-4 pt-16 pb-24 sm:pt-24">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,600px)_minmax(0,1fr)] lg:items-center lg:gap-16">
+        <section className="relative mx-auto max-w-6xl px-4 pt-16 pb-24 sm:pt-24">
+          {/* Mobile-only topographic accent: bleeds off the top-right, behind text */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-24 -top-8 z-0 h-[340px] w-[340px] opacity-70 sm:-right-16 sm:h-[420px] sm:w-[420px] lg:hidden"
+          >
+            <svg
+              viewBox="0 0 400 400"
+              className="h-full w-full text-[color:var(--color-border)]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.25"
+            >
+              {Array.from({ length: 11 }).map((_, i) => {
+                const r = 40 + i * 20;
+                return (
+                  <ellipse
+                    key={i}
+                    cx="260"
+                    cy="150"
+                    rx={r}
+                    ry={r * 0.72}
+                    opacity={0.55 - i * 0.035}
+                  />
+                );
+              })}
+              <circle
+                cx="260"
+                cy="150"
+                r="12"
+                fill="var(--color-brand)"
+                stroke="none"
+                opacity="0.85"
+              />
+              <circle cx="90" cy="70" r="4" fill="var(--color-cta)" stroke="none" />
+            </svg>
+          </div>
+
+          {/* Mobile-only brand tick — bottom-left of hero, echoes the desktop composition */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-6 left-6 z-0 hidden sm:block lg:hidden"
+          >
+            <div className="h-[2px] w-14 bg-[color:var(--color-brand)] opacity-70" />
+          </div>
+
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(0,600px)_minmax(0,1fr)] lg:items-center lg:gap-16">
             <div className="max-w-[600px]">
               <span className="badge badge-internship">For High Schoolers in Egypt</span>
 
