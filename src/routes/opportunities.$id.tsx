@@ -10,6 +10,7 @@ import {
   WORK_STYLE_LABELS,
   opportunityQuery,
 } from "@/lib/opportunities";
+import { safeHttpUrl } from "@/lib/url";
 
 function ErrorView({ reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
