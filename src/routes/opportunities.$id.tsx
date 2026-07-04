@@ -117,11 +117,6 @@ function OpportunityDetails() {
                 <span className="truncate font-sans text-[13px] font-medium text-muted-foreground">
                   {org?.name}
                 </span>
-                {data.is_verified && (
-                  <span className="badge badge-verified">
-                    <BadgeCheck className="h-3 w-3" /> Verified
-                  </span>
-                )}
               </div>
               {safeHttpUrl(org?.website) && (
                 <a
